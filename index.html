@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Arcadia</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<meta http-equiv="refresh" content="0;url=http://google.com" />自動轉址-->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="main.js"></script>
+        <style>
+            body
+            {
+                background-color: #0C182D;
+            }    
+       
+
+            #loginFrame{
+                height:300px;
+                width:430px;
+                position: absolute;
+            }
+            #passwd{
+                width:300px;
+                height:40px;
+                position:absolute;
+                top:160px;
+                left:65px;
+                border:2px solid #505460;
+                border-radius: 25px;
+            }
+            #passwdInput{
+                background-color:transparent;
+                border:0px;
+                outline:none;
+                position: relative;
+                width:230px;
+                height:40px;
+                left:30px;
+                top:-1px;
+                font-size: 20px;
+                color:white;
+               
+            }
+            #loginBT{
+                width:130px;
+                height:40px;
+                border-radius: 25px;
+                left:150px;
+                top:260px;
+                position: absolute;
+                outline: none;
+            }
+            .role{
+                position: absolute;
+                width:80px;
+                height:30px;
+                font-size: 18px;
+                color:white;
+                cursor: pointer;
+            }
+            #grole{
+                left:105px;
+                top:100px;
+            
+            }
+            #orole{
+                left:250px;
+                top:100px;
+            }
+            #tips{
+                width:250px;
+                height:30px;
+                color: red;
+                position:absolute;
+                top:215px;
+                left:75px;
+                font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+   
+        <div id="loginFrame">
+            <div class="role" id="grole">GUEST
+                <div id="groleL" style="width:0px;height:5px;background-color: white;"></div>
+            </div>
+            
+            <div class="role" id="orole">OWNER
+                 <div id="oroleL" style="width:0px;height:5px;background-color: white;"></div>
+            </div>
+                <div id="tips">
+                    <p id="tipsContent"></p>
+                </div>
+
+                <div id="passwd">
+                    <span class="ion-locked" style="color:white;font-size: 20px;left:15px;width:10px;position:relative;"></span>
+                    <input id="passwdInput" type="password" name="passwd" maxlength="16"/>
+                </div>
+                <button id="loginBT" type="button" class="btn btn-success">Login</button>
+            
+        </div>
+       
+        <script>
+             function setPosition(){
+                var windowHeight = $(window).height();
+                var windowWidth = $(window).width();
+                var fh = $("#loginFrame").height();
+                var fw = $("#loginFrame").width();
+                var top = (windowHeight - fh)/2 -50;
+                var left = (windowWidth - fw)/2;
+
+                $("#loginFrame").css("top",top);
+                $("#loginFrame").css("left",left);
+              
+
+                
+            };
+                setPosition();
+
+                $(window).resize(function(){
+                    setPosition();
+                });
+            
+        </script>
+        <script>
+            var role = 1;//role 1 for guest,2 for owner
+
+
+
+
+
+            $("#grole").click(function(){
+                $("#groleL").animate({width: "80px"},300,"swing",null);
+                $("#grole").animate({fontSize: "20px"},100,"swing",null);
+                $("#grole").css("color","white")
+                $("#oroleL").animate({width: "0px"},300,"swing",null);
+                $("#orole").animate({fontSize: "18px"},100,"swing",null);
+                $("#orole").css("color","#505460");
+                $("#loginBT").html("Get File");
+                $("#passwdInput").val("");
+                $("#passwdInput").prop({"type":"text"});
+                $("#tipsContent").html("");     
+                role = 1;
+               
+            });
+            $("#orole").click(function(){
+                $("#oroleL").animate({width: "80px"},300,"swing",null);
+                $("#orole").animate({fontSize: "20px"},100,"swing",null);
+                $("#orole").css("color","white")
+                $("#groleL").animate({width: "0px"},300,"swing",null);
+                $("#grole").animate({fontSize: "18px"},100,"swing",null);
+                $("#grole").css("color","#505460");
+                $("#loginBT").html("Login");
+                $("#passwdInput").val("");
+                $("#passwdInput").prop({"type":"password"});
+                $("#tipsContent").html("");
+                role = 2;
+           
+            });
+            $("#grole").click();//the page init to the Guest button
+            $("#loginBT").click(function(){
+                var input = $("#passwdInput").val();
+                if(role==2){
+                    arcadia.rpc("checkIfAdmin",input).done(function(data){
+                        console.log(data);                    
+                       
+                        location.href = 'main.html';        
+                    }).fail(function(){
+                        $("#tipsContent").html("Please select the right role.");
+                    });
+                }else{
+                    arcadia.rpc("checkSourceCode",input).done(function(data){
+                        console.log(data);                    
+                        console.log("checkSourceCode");  
+                        location.href = '/s/share.html';        
+                    }).fail(function(){
+                        console.log("checkSourceCode失败"); 
+                        $("#tipsContent").html("wrong link number , please check!"); 
+                    });
+                   
+                   
+                }
+
+            });
+            
+
+            arcadia.bindInputButton("#passwdInput","#loginBT");
+            
+
+            
+
+        </script>
+    </body>
+</html>

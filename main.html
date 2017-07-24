@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>The Arcadia</title>
+        <meta name="description" content="the cloud">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="source/ionicons.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="main.js"></script>
+        <style>
+            body{ margin:0;
+                -moz-user-select: none; 
+                -webkit-user-select: none; 
+                -ms-user-select: none; 
+                -khtml-user-select: none; 
+                user-select: none; 
+            
+            
+            
+            }
+            
+
+            #nav{
+                height:60px;
+                width:100%;
+                background-color: #07253F;
+                position: absolute;
+                box-shadow: 0px 2px 7px black;
+                z-index: 7;
+            }
+            
+           
+            #leftNav{
+                height:100%;
+                width:330px;
+                padding-top:60px;
+                background-color: #0A3152;
+                position: absolute;
+                box-shadow: 0px 2px 7px black;
+                z-index: 3;
+       
+            }
+            #fileContainer{
+                height:100%;
+                margin-left:330px;
+                padding-top:60px;
+               
+                background-color: #E3E3E3;               
+                z-index: 2;
+
+
+
+            }
+            #fileFrame{
+                
+                
+                
+                overflow:auto;
+                padding-top:40px;
+              
+                
+                             
+             
+                
+            }
+            #userIcon{
+                position: absolute;
+                right:10px;
+                top:10px;
+                height:30px;
+                width:40px;
+                color:white;
+                font-size: 30px;
+
+            }
+            #userName{
+                width:200px;
+                height:30px;
+                font-size: 20px;
+                color:white;
+                right:60px;
+                position: absolute;
+                top:17px;
+                text-align: right;
+            }
+         
+            .file{
+                width:150px;
+                height:200px;
+                background-color: #d8d8d8;
+                position: relative;
+                border-radius: 4px;
+                margin-bottom:40px;
+                margin-left:40px;
+                z-index: 6;
+                box-shadow: 0px 1px 7px #3f3f3f;
+                float:left;
+            }
+            .filemask{
+                width:150px;
+                height:200px;
+    
+                z-index: 15;
+                position: absolute;
+            }
+            .filePic{
+                width:150px;
+                height:150px;
+                z-index: 5;
+                position:absolute;
+            
+                
+            }
+            .fPic{
+              
+                height:100px;
+                top:25px;
+                z-index: 6;
+                left:38px;
+       
+                position:absolute;
+    
+            }
+            .fileName{
+                width:150px;
+                height:50px;
+                margin-top:150px;
+                position:absolute;
+                background-color: white;
+                border-radius: 0px 0px 4px 4px;
+                font-size: 17px;
+                line-height: 50px;
+                text-align: center;
+                font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                font-weight: lighter;
+                z-index:17;
+            }
+            #m{
+                width:100%;
+                height:100%;
+                position: absolute;
+            }
+
+            #contentFrame{
+               width:330px;
+               height:70%;
+               position: relative;
+          
+             
+               top:80px;
+               color:white;
+               font-size:22px;
+         
+
+
+            }
+            .navC{
+               margin:0px;
+               width:330px;
+               height:45px; 
+               padding-left:10px;
+               padding-top:5px;
+               position: relative;
+         
+            }
+            .navC_selected{
+                background-color: #07253F;
+                margin:0px;
+                width:330px;
+                height:45px; 
+                padding-left:10px;
+                padding-top:5px;
+                position: relative;
+                
+            }
+           
+            div.navC:hover { 
+                background-color: #134363;
+            }
+            div.file:hover {
+                box-shadow: 0px 1px 13px #3f3f3f;
+            }
+            .moreInfo{
+                background-color:#3792bc;
+                width:150px;
+                height:35px;
+                bottom: 10px;
+                position: absolute;
+                z-index:16;
+                color:white;
+                font-size: 18px;
+                line-height:35px;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-weight: lighter;
+                text-align:center;
+                cursor: pointer;
+            }
+            #uploadButton{
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-weight: lighter;
+                text-align:center;
+                height:40px;
+                margin-left:65px;
+                margin-top:10px;
+                width:200px;
+                font-size:16px;              
+            }
+            #uploadButtonP{
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-weight: lighter;
+                text-align:center;
+                height:40px;
+                margin-left:65px;
+                margin-top:10px;
+                width:200px;
+                font-size:16px;       
+                display: none;       
+            }
+            .star{
+                position: absolute;
+                top:5px;
+                left:5px;
+                width:25px;
+                height:25px;
+                color:#f4e324;
+                font-size: 25px;
+                line-height: 25px;
+               
+            }
+            .delete{
+                position: absolute;
+                top:5px;
+                right:5px;
+                width:25px;
+                height:25px;
+                color:#c82c2c;
+                font-size: 25px;
+                line-height: 25px;
+                opacity:0;
+                z-index:100;
+                cursor:pointer;
+                display: none;
+            }
+        </style>                        
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="m">
+            <div id="n">
+            <div id="nav">
+                <div>
+                    <span id="userName">TIANYI YUAN</span>
+                    <div id="userIcon" class="ion-person"></div>
+                </div>
+            </div>
+            </div>
+            
+            <div id="leftNav">
+                <div id="contentFrame">
+                    <div class="navC" id="files">
+                        <p class="ion-ios-list-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-1px;cursor:pointer;"></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Files</font></p>
+                    </div>
+                    <div class="navC" id="shared">
+                        <p class="ion-ios-paperplane-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-1px;cursor:pointer;"></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Shared</font></p>
+                    </div>
+                    <div class="navC" id="starred">
+                        <p class="ion-ios-star-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-2px;left:-2px;cursor:pointer;"></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Starred</font></p>
+                    </div>
+                    <div class="navC" id="photos">
+                        <p class="ion-ios-camera-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-1px;left:-1px;cursor:pointer;"></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Photos</font></p>
+                    </div>
+                    <div class="navC" id="bin">
+                        <p class="ion-ios-trash-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-1px;left:1px;cursor:pointer;"></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Bin</font></p>
+                    </div>
+
+                    <div id="uploadButton" type="button" class="btn btn-success">
+                        Upload Files <span class='ion-ios-cloud-upload-outline'style="font-size:18px;"></span>
+                    </div>
+                    <div id="uploadButtonP" type="button" class="btn btn-success">
+                        Upload photos <span class='ion-ios-cloud-upload-outline'style="font-size:18px;"></span>
+                    </div>
+                    <form id='uploadform'>
+                    <input type="file" name="uploadfile" id='uploadfile' style="display:none"/>
+                    </form>
+                    <form id='uploadformP'>
+                    <input type="file" name="uploadphoto" id='uploadphoto' style="display:none" accept="image/*"/>
+                    </form>
+                </div>
+            </div>
+            <div id="fileContainer">
+                <div id="fileFrame">           
+                </div>
+            </div>
+        </div>
+
+        <div id="contextmenu" style="width:100px;height:100px;background-color:#f4e324;position:absolute;z-index:999;display:none;">
+
+        </div>
+        
+        <script>
+                arcadia.currentCate = document.location.hash.substring(1);
+                console.log(arcadia.currentCate);
+
+            $(".navC").click(function(e){
+                    
+                    location.href="#"+e.currentTarget.id;
+                    var id = e.currentTarget.id;
+                    arcadia.currentCate = id;
+                    arcadia.selectCategory();
+                    arcadia.fileModelShow(files,"files",arcadia.currentCate);
+                    
+            });
+               
+            // $(window).resize(function(){
+                  
+            //         var windowHeight = $(window).height();
+            //         var windowWidth = $(window).width();
+                
+            //         $("#leftNav").css("height",windowHeight);
+            //         $("#fileFrame").css("height",windowHeight);
+            //         $("#fileFrame").css("width",windowWidth-350);
+            //         console.log("resize");
+            //     });
+            // for(var i=1001 ;i<3000;i++){
+            //   arcadia.rpc("createSourceFile",1,"abc1"+i,"dwaw"+i).done(function(data){
+            //     console.log("create!")
+
+            //   });
+            // }
+            $(window).on("load", function (e) {
+                var windowWidth = $(window).width();
+                var windowHeight = $(window).height();           
+                arcadia.selectCategory();
+
+                    arcadia.rpc("getFileDetails",1).done(function(data){    
+                        files = data;             
+                        console.log(files);  
+                        arcadia.fileModelShow(files,"files",arcadia.currentCate);   
+                    }).fail(function(){
+                        console.log("getFileDetails失败"); 
+                        
+                    });
+                
+                $("#fileFrame").css("height",windowHeight-60);
+       
+                
+                
+
+
+            });
+
+
+            $(window).resize(function(){
+                  
+                    var windowHeight = $(window).height();
+                    var windowWidth = $(window).width();
+                
+                    // $("#leftNav").css("height",windowHeight);
+                    $("#fileFrame").css("height",windowHeight-60);
+                    // $("#fileFrame").css("width",windowWidth-350);
+                    // console.log("resize");
+                    arcadia.fileModelShow(files,"files",arcadia.currentCate);
+
+                 
+                    
+            });
+
+            $('#uploadButton').click(function(){
+                $('#uploadfile').click();
+            });
+
+            $('#uploadButtonP').click(function(){
+                $('#uploadphoto').click();
+            });
+
+            $('#uploadfile').change(function (e) { 
+     
+                arcadia.uploadFile('#uploadform',1).done(function(data){
+                    
+
+                    arcadia.rpc("getFileDetails",1).done(function(data){
+                            
+                        files = data;             
+                        // console.log(files);  
+                        arcadia.fileModelShow(files,"files",arcadia.currentCate);
+                        
+                    }).fail(function(){
+                        console.log("getFileDetails失败"); 
+                        
+                    });
+                    
+                });
+            });
+            
+            $('#uploadphoto').change(function (e) { 
+     
+                arcadia.uploadFile('#uploadformP',1).done(function(data){
+                    
+
+                    arcadia.rpc("getFileDetails",1).done(function(data){
+                            
+                        files = data;             
+                        // console.log(files);  
+                        arcadia.fileModelShow(files,"files",arcadia.currentCate);
+                        
+                    }).fail(function(){
+                        console.log("getFileDetails失败"); 
+                        
+                    });
+                    
+                });
+            });
+
+              
+
+            
+        </script>
+
+        <script>
+        //You should create a Array first and make each element be an Object.
+        var arr = [];
+        arr[0] = {};
+        arr[1] = {};
+        arr[2] = {};
+           arr[0].file = '/s/WechatIMG2.jpeg'     
+           arr[1].file = '/s/WechatIMG3.jpeg' 
+           arr[1].file = '/s/WechatIMG4.jpeg'   
+         //photoslider.open(arr,0);  //  if the index is 0,it will show the first img,if 1,show the second and so on.
+
+         
+function blockMenu(e){
+
+  // window.event 是IE才有的物件
+
+  if(window.event){
+
+    e = window.event;
+
+    e.returnValue = false;//取消IE預設事件
+
+  }else{
+
+    e.preventDefault();//取消DOM預設事件
+  }
+  console.log("右键了!");
+  $("#contextmenu").show();
+}
+
+document.oncontextmenu = blockMenu;
+
+        </script> 
+    </body>
+</html>
