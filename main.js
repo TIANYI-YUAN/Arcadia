@@ -196,13 +196,26 @@ arcadia.fileModelShow = function(fileMap,domId,category){
                 name = name.substring(0,13) + ".."
             }
             map[i].fileType = arcadia.checkFileType(map[i].filename);
-            $("#fileFrame").append("<div id='"+domId+i
-            +"' class='file'><div class='filemask'></div><div class='moreInfo' id='dl"+i+"'>"+ 
-            "Download <span class='ion-ios-cloud-download-outline' style='font-size:18px;'>"+
-            "</span></div>"+
-            "<div class='delete ion-ios-close' id='del"+i+"'></div>"+
-            "<div class='filePic'><img class='fPic' id='fPicNum"+i+"' /></div><div class='fileName' id ='nameNum"+i+"'>"+
-            name+"</div></div>");
+            // console.log(map[i].deleted);
+            if(map[i].deleted != 1){
+                $("#fileFrame").append("<div id='"+domId+i
+                +"' class='file'><div class='filemask'></div><div class='moreInfo' id='dl"+i+"'>"+ 
+                "Download <span class='ion-ios-cloud-download-outline' style='font-size:18px;'>"+
+                "</span></div>"+
+                "<div class='delete ion-ios-close' id='del"+i+"'></div>"+
+                "<div class='filePic'><img class='fPic' id='fPicNum"+i+"' /></div><div class='fileName' id ='nameNum"+i+"'>"+
+                name+"</div></div>");
+            }else{
+                $("#fileFrame").append("<div id='"+domId+i
+                +"' class='file'><div class='filemask'></div><div class='moreInfo' id='dl"+i+"'>"+ 
+                "Recover"+
+                "</span></div>"+
+                "<div class='filePic'><img class='fPic' id='fPicNum"+i+"' /></div><div class='fileName' id ='nameNum"+i+"'>"+
+                name+"</div></div>");
+            }
+            
+
+            //check file type and set the file image
             if(arcadia.checkIfinTypeList(map[i].fileType)==1){
                 $("#fPicNum"+i).attr("src","source/icons/"+map[i].fileType[0]+".png");
             }else{
