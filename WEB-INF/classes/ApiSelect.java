@@ -44,6 +44,9 @@ public class ApiSelect {
             case "moveFileToBin": 
                 rs = moveFileToBin(args);
                 return rs;
+            case "recoverFileFromBin":
+                rs = recoverFileFromBin(args);
+                return rs;
             // case "getPhotoDetails": 
             //     rs = getPhotoDetails(args);
             //     return rs;
@@ -131,7 +134,7 @@ public class ApiSelect {
         String sql = "select * from source_link where creatorId='"+ args.get(0)+"'";
         ConnectionPool connp = new ConnectionPool();
         Map returnArgs = connp.postToPool(sql,2);
-        return returnArgs;
+            return returnArgs;
 
     }
 
@@ -140,9 +143,18 @@ public class ApiSelect {
         String sql = "delete from source_link where sourcecode='"+ args.get(0)+"'";
         ConnectionPool connp = new ConnectionPool();
         Map returnArgs = connp.postToPool(sql,0);
-        return returnArgs;
+            return returnArgs;
 
     }
+
+    public Map recoverFileFromBin(List args){
+        ConnectionPool connp = new ConnectionPool();
+        String sourcecode = args.get(0).toString();
+        String sql = "UPDATE `source_link` SET deleted = '0' WHERE sourcecode = '"+sourcecode+"'";
+        Map returnArgs = connp.postToPool(sql,0);   
+            return returnArgs;
+    }
+
 
     public static List isImage(File imageFile) {  
        List r = new ArrayList();

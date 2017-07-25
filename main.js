@@ -100,7 +100,7 @@ arcadia.fileModelShow = function(fileMap,domId,category){
         $("#fileFrame").html("");
         var windowWidth = $(window).width();
         var availableWidth = windowWidth-330-50;
-        var mapSize = fileMap.files.length;
+        var mapSize = fileMap.length;
 
         // arcadia.mapFiles = fileMap.files;
            
@@ -108,62 +108,57 @@ arcadia.fileModelShow = function(fileMap,domId,category){
             case "files":
                     arcadia.mapFiles = [];
                     for(var i = 0;i<mapSize;i++){
-                        if(fileMap.files[i].deleted==0){
-                            arcadia.mapFiles.push(fileMap.files[i]);                  
+                        if(fileMap[i].deleted==0){
+                            arcadia.mapFiles.push(fileMap[i]);                  
                         }
                     }
-                    map=arcadia.mapFiles;
+                    map=arcadia.files;
                     break;
             case "shared":
                 // if(arcadia.mapShared.length<=0){
                     arcadia.mapShared = [];
                     for(var i = 0;i<mapSize;i++){
-                        if(fileMap.files[i].shared==1){
-                            arcadia.mapShared.push(fileMap.files[i]);                            
+                        if(fileMap[i].shared==1){
+                            arcadia.mapShared.push(fileMap[i]);                            
                         }
                     }
                 //     console.log("new mapShared");
                 // } 
-                    map=arcadia.mapShared;
+                    map=arcadia.sharedfiles;
                     break;
             case "starred":
                 // if(arcadia.mapStarred.length<=0){
                     arcadia.mapStarred = [];
                     for(var i = 0;i<mapSize;i++){
-                        if(fileMap.files[i].starred==1){
-                            arcadia.mapStarred.push(fileMap.files[i]);
+                        if(fileMap[i].starred==1){
+                            arcadia.mapStarred.push(fileMap[i]);
                         }
                     }
                 //     console.log("new mapStarred");
                 // } 
-                    map=arcadia.mapStarred;
+                    map=arcadia.starredfiles;
                     break;
             case "photos":
                 // if(arcadia.mapPhotos.length<=0){
-                    arcadia.mapPhotos = [];
-                    for(var i = 0;i<mapSize;i++){
-                        if(fileMap.files[i].photo==1){
-                            arcadia.mapPhotos.push(fileMap.files[i]);
-                        }
-                    }
+                    // arcadia.mapPhotos = [];
+                    // for(var i = 0;i<mapSize;i++){
+                    //     if(fileMap[i].photo==1){
+                    //         arcadia.mapPhotos.push(fileMap[i]);
+                    //     }
+                    // }
                 //     console.log("new mapPhotos");
                 // } 
-                    map=arcadia.mapPhotos;
+                    map=arcadia.photofiles;
                     break;
             case "bin":
                 // if(arcadia.mapBin.length<=0){
-                    arcadia.mapBin =[];
-                    for(var i = 0;i<mapSize;i++){
-                        if(fileMap.files[i].deleted==1){
-                            arcadia.mapBin.push(fileMap.files[i]);
-                        }
-                    }
+                    
                 //     console.log("new mapBin");
                 // } 
-                    map=arcadia.mapBin;
+                    map=arcadia.binfiles;
                     break;
             default:
-                    map=arcadia.mapBin;
+                    map=arcadia.binfiles;
                     break;
         }
 
@@ -262,7 +257,7 @@ arcadia.bindFileClick = function(){
             $("#del"+id.substring(5)).show();
             $("#dl"+id.substring(5)).animate({bottom: "50px"},200,"linear",null);
             $("#del"+id.substring(5)).animate({opacity: "1"},200,"linear",null);
-            files.files[id.substring(5)].selected = 1;
+            // files[id.substring(5)].selected = 1;
             
     }
 
@@ -283,33 +278,62 @@ arcadia.bindFileClick = function(){
     $(".moreInfo").click(function(e){
         //绑定下载按钮
         var id = e.currentTarget.id.substring(2);
-        arcadia.downloadFile(files.files[id].filename);
+        console.log(e.currentTarget);
+        // arcadia.downloadFile(files[id].filename);
     });
     
     $('.delete').click(function(e){
         //绑定删除按钮
         console.log(e.target.id.substring(3));
-        console.log(files.files[e.target.id.substring(3)].sourcecode);
-        // arcadia.rpc("deleteFile",files.files[e.target.id.substring(3)].sourcecode).done(function(data){
+        console.log(files[e.target.id.substring(3)].sourcecode);
+        // arcadia.rpc("deleteFile",files[e.target.id.substring(3)].sourcecode).done(function(data){
         //     console.log(data);
         //     arcadia.refresh();
         // }).fail(function(){
         //     console.log("delete file failed.(main.js)");
         // });
-        arcadia.rpc("moveFileToBin",files.files[e.target.id.substring(3)].sourcecode).done(function(data){
-            console.log("moveFileToBin成功"); 
-            arcadia.refresh();            
-        }).fail(function(){
-            console.log("moveFileToBin失败"); 
+        console.log(e.target);
+        // arcadia.rpc("moveFileToBin",files[e.target.id.substring(3)].sourcecode).done(function(data){
+        //     console.log("moveFileToBin成功"); 
+        //     arcadia.refresh();            
+        // }).fail(function(){
+        //     console.log("moveFileToBin失败"); 
             
-        }); 
+        // }); 
     });
 }
-
+arcadia.binfiles =[];
+arcadia.photofiles = [];
+arcadia.starredfiles = [];
+arcadia.sharedfiles = [];
+arcadia.files=[];
 arcadia.refresh = function(){
-    arcadia.rpc("getFileDetails",1).done(function(data){                  
-        files = data;             
-        arcadia.fileModelShow(files,"files",arcadia.currentCate);     
+    arcadia.rpc("getFileDetails",1).done(function(data){
+        files = [];
+        arcadia.binfiles = [];
+        arcadia.photofiles = [];
+        arcadia.starredfiles = [];
+        arcadia.sharedfiles = [];
+        for(var i=0;i<data.files.length;i++){
+            console.log(data.files[i]);
+            if(data.files[i].deleted==1){
+                
+                arcadia.binfiles.push(data.files[i]);
+            }else if(data.files[i].photo==1){
+                arcadia.photofiles.push(data.files[i]);
+            }else if(data.files[i].starred==1){
+                arcadia.starredfiles.push(data.files[i]);
+            }else if(data.files[i].shared==1){
+                arcadia.sharedfiles.push(data.files[i]);
+            }else{
+                arcadia.files.push(data.files[i]);
+            }
+        }                  
+                
+        //ti chu bin     
+        arcadia.fileModelShow(files,"files",arcadia.currentCate);  
+        console.log(files);
+        console.log("refresh successed");
     }).fail(function(){
         console.log("getFileDetails失败"); 
     });
