@@ -95,13 +95,14 @@ arcadia.urlArges = function() {
         }
         return args;
     }
-
+arcadia.currentCate = arcadia.urlArges();
+console.log(arcadia.urlArges());
 arcadia.fileModelShow = function(fileMap,domId,category){
         $("#fileFrame").html("");
         var windowWidth = $(window).width();
         var availableWidth = windowWidth-330-50;
         var mapSize = fileMap.length;
-
+        map = [];
         // arcadia.mapFiles = fileMap.files;
            
         switch(category){
@@ -161,7 +162,7 @@ arcadia.fileModelShow = function(fileMap,domId,category){
                     map=arcadia.binfiles;
                     break;
         }
-
+        console.log(map);
 
 
         var lineCount = Math.floor(availableWidth/190);
@@ -279,13 +280,13 @@ arcadia.bindFileClick = function(){
         //绑定下载按钮
         var id = e.currentTarget.id.substring(2);
         console.log(e.currentTarget);
-        // arcadia.downloadFile(files[id].filename);
+        arcadia.downloadFile(map[id].filename);
     });
     
     $('.delete').click(function(e){
         //绑定删除按钮
         console.log(e.target.id.substring(3));
-        console.log(files[e.target.id.substring(3)].sourcecode);
+        console.log(map[e.target.id.substring(3)].sourcecode);
         // arcadia.rpc("deleteFile",files[e.target.id.substring(3)].sourcecode).done(function(data){
         //     console.log(data);
         //     arcadia.refresh();
@@ -293,13 +294,13 @@ arcadia.bindFileClick = function(){
         //     console.log("delete file failed.(main.js)");
         // });
         console.log(e.target);
-        // arcadia.rpc("moveFileToBin",files[e.target.id.substring(3)].sourcecode).done(function(data){
-        //     console.log("moveFileToBin成功"); 
-        //     arcadia.refresh();            
-        // }).fail(function(){
-        //     console.log("moveFileToBin失败"); 
+        arcadia.rpc("moveFileToBin",map[e.target.id.substring(3)].sourcecode).done(function(data){
+            console.log("moveFileToBin成功"); 
+            arcadia.refresh();            
+        }).fail(function(){
+            console.log("moveFileToBin失败"); 
             
-        // }); 
+        }); 
     });
 }
 arcadia.binfiles =[];
@@ -309,22 +310,23 @@ arcadia.sharedfiles = [];
 arcadia.files=[];
 arcadia.refresh = function(){
     arcadia.rpc("getFileDetails",1).done(function(data){
-        files = [];
+        arcadia.files = [];
         arcadia.binfiles = [];
         arcadia.photofiles = [];
         arcadia.starredfiles = [];
         arcadia.sharedfiles = [];
         for(var i=0;i<data.files.length;i++){
             console.log(data.files[i]);
-            if(data.files[i].deleted==1){
-                
+            if(data.files[i].deleted==1){    
                 arcadia.binfiles.push(data.files[i]);
             }else if(data.files[i].photo==1){
                 arcadia.photofiles.push(data.files[i]);
             }else if(data.files[i].starred==1){
                 arcadia.starredfiles.push(data.files[i]);
+                arcadia.files.push(data.files[i]);
             }else if(data.files[i].shared==1){
                 arcadia.sharedfiles.push(data.files[i]);
+                arcadia.files.push(data.files[i]);
             }else{
                 arcadia.files.push(data.files[i]);
             }
