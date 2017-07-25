@@ -280,7 +280,20 @@ arcadia.bindFileClick = function(){
         //绑定下载按钮
         var id = e.currentTarget.id.substring(2);
         console.log(e.currentTarget);
-        arcadia.downloadFile(map[id].filename);
+        console.log(arcadia.currentCate);
+        if(arcadia.currentCate == "bin"){
+            arcadia.rpc("recoverFileFromBin",map[id].sourcecode).done(function(data){
+            console.log("recoverFileFromBin成功"); 
+            arcadia.refresh();            
+            }).fail(function(){
+                console.log("recoverFileFromBin失败"); 
+                
+            }); 
+        }else{
+            console.log("down");
+            arcadia.downloadFile(map[id].filename);
+        }
+        
     });
     
     $('.delete').click(function(e){
@@ -393,5 +406,3 @@ arcadia.checkIfinTypeList = function(type){
     return 0;
 }
 
-
-    
