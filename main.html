@@ -139,8 +139,8 @@
                 font-size: 17px;
                 line-height: 50px;
                 text-align: center;
-                font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                font-weight: lighter;
+                font-family: "myfont";
+                
                 z-index:17;
             }
             #m{
@@ -163,13 +163,14 @@
 
             }
             .navC{
-               margin:0px;
-               width:330px;
-               height:45px; 
-               padding-left:10px;
-               padding-top:5px;
-               position: relative;
-         
+                margin:0px;
+                width:330px;
+                height:45px; 
+                padding-left:10px;
+                padding-top:5px;
+                position: relative;
+                font-family: "myfontB";    
+                line-height: 35px;
             }
             .navC_selected{
                 background-color: #07253F;
@@ -179,7 +180,8 @@
                 padding-left:10px;
                 padding-top:5px;
                 position: relative;
-                
+                font-family: "myfontB"; 
+                line-height: 35px;
             }
            
             div.navC:hover { 
@@ -249,6 +251,16 @@
                 cursor:pointer;
                 display: none;
             }
+            @font-face
+            {
+                font-family: myfont;
+                src: url('fonts/Nunito-Regular.ttf');
+            }
+            @font-face
+            {
+                font-family: myfontB;
+                src: url('fonts/MerriweatherSans-Bold.ttf');
+            }
         </style>                        
     </head>
     <body>
@@ -269,23 +281,23 @@
                 <div id="contentFrame">
                     <div class="navC" id="files">
                         <p class="ion-ios-list-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-1px;cursor:pointer;"></p>
-                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Files</font></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;">Files</font></p>
                     </div>
                     <div class="navC" id="shared">
                         <p class="ion-ios-paperplane-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-1px;cursor:pointer;"></p>
-                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Shared</font></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;">Shared</font></p>
                     </div>
                     <div class="navC" id="starred">
                         <p class="ion-ios-star-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-2px;left:-2px;cursor:pointer;"></p>
-                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Starred</font></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;">Starred</font></p>
                     </div>
                     <div class="navC" id="photos">
                         <p class="ion-ios-camera-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-1px;left:-1px;cursor:pointer;"></p>
-                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Photos</font></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;">Photos</font></p>
                     </div>
                     <div class="navC" id="bin">
                         <p class="ion-ios-trash-outline"style="float:left;font-size:26px;height:10px;position:relative;top:-1px;left:1px;cursor:pointer;"></p>
-                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;"><font face="calibri light">Bin</font></p>
+                        <p style="margin-left:30px;margin-bottom:0px;cursor:pointer;">Bin</font></p>
                     </div>
 
                     <div id="uploadButton" type="button" class="btn btn-success">
