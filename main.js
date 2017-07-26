@@ -97,6 +97,7 @@ arcadia.urlArges = function() {
     }
 arcadia.currentCate = arcadia.urlArges();
 console.log(arcadia.urlArges());
+
 arcadia.fileModelShow = function(fileMap,domId,category){
         $("#fileFrame").html("");
         var windowWidth = $(window).width();
