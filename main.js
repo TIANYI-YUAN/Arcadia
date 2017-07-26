@@ -364,30 +364,49 @@ arcadia.downloadFile = function(fileName){
 
 
 
-arcadia.uploadFile = function(domId,creatorId,ifPhoto){
+arcadia.uploadFile = function(domId,creatorId,ifPhoto){ 
 
     var formData = new FormData($(domId)[0]);
 
     // for (var pair of formData.entries()) {
     // console.log(pair[0]+ ', ' + pair[1]); 
     // }
-    formData.append("creatorId",creatorId);
-    formData.append("ifPhoto",ifPhoto);
-    return $.ajax({
-    url: "/UploadServlet",
-    type: 'POST',
-    cache: false,
-    data: formData,
-    processData: false,
-    contentType: false,
-    dataType: 'json'
-}).done(function(data, textStatus, jqXHR) {
+        formData.append("creatorId",creatorId);
+        formData.append("ifPhoto",ifPhoto);
+        return $.ajax({
+        url: "/UploadServlet",
+        type: 'POST',
+        cache: false,
+        data: formData,
+        xhr: function() {  // custom xhr
+                myXhr = $.ajaxSettings.xhr();
+                if(myXhr.upload){ // check if upload property exists
+                    myXhr.upload.addEventListener('progress',arcadia.progressHandlingFunction, false); // for handling the progress of the upload
+                }
+                
+                return myXhr;
+            },
+        processData: false,
+        contentType: false,
+        dataType: 'json'
+    }).done(function(data, textStatus, jqXHR) {
 
     }).fail(function(res) {
     console.log(res);    
     });  
 }
-
+arcadia.progressHandlingFunction=function(e){
+     
+        if (e.lengthComputable) {  
+            // $('progress').attr({value : e.loaded, max : e.total}); //更新数据到进度条  
+            var percent = e.loaded/e.total*100;  
+            console.log(percent);
+            $('#progress').html(e.loaded + "/" + e.total+" bytes. " + percent.toFixed(2) + "%");  
+            $('#progress').attr("aria-valuenow",percent);
+            $('#progress').css("width",percent+"%");
+        }  
+     
+}
 
 arcadia.checkFileType = function(fileName){
     //检查扩展名
