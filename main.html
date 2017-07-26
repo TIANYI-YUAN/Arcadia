@@ -140,7 +140,9 @@
                 line-height: 50px;
                 text-align: center;
                 font-family: "myfont";
-                
+                overflow: hidden;  
+                white-space:nowrap; 
+                text-overflow:ellipsis;
                 z-index:17;
             }
             #m{
@@ -214,6 +216,14 @@
                 margin-top:10px;
                 width:200px;
                 font-size:16px;              
+            }
+            #progressBarContainer{
+                width:80%;
+                left:10%;
+                position: absolute;
+                height:100px;
+                top:300px;
+                
             }
             #uploadButtonP{
                 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -313,8 +323,11 @@
                     <input type="file" name="uploadphoto" id='uploadphoto' style="display:none" accept="image/*"/>
                     </form>
                     <br/>
-                    <div class="progress active">
-                        <div class="progress-bar progress-bar-striped" id="progress" role="progressbar" style="width: 0%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">0</div>
+                    <div id="progressBarContainer"style="display:none;">
+                        <div id='progresstxt'style="color:white;font-size:12px;text-align:center;height:20px;"></div>
+                        <div class="progress active">
+                            <div class="progress-bar progress-bar-striped" id="progress" role="progressbar" style="width: 0%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </div>
                 </div>
             </div>

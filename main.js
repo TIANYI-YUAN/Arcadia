@@ -188,9 +188,9 @@ arcadia.fileModelShow = function(fileMap,domId,category){
         
             var name = map[i].filename;
             
-            if(name.length>13){
-                name = name.substring(0,13) + ".."
-            }
+            // if(name.length>11){
+            //     name = name.substring(0,11) + ".."
+            // }
             map[i].fileType = arcadia.checkFileType(map[i].filename);
             // console.log(map[i].deleted);
             if(map[i].deleted != 1){
@@ -349,6 +349,7 @@ arcadia.refresh = function(){
         arcadia.fileModelShow(files,"files",arcadia.currentCate);  
         console.log(files);
         console.log("refresh successed");
+       
     }).fail(function(){
         console.log("getFileDetails失败"); 
     });
@@ -396,14 +397,29 @@ arcadia.uploadFile = function(domId,creatorId,ifPhoto){
     });  
 }
 arcadia.progressHandlingFunction=function(e){
-     
+        $('#progressBarContainer').show();
+        $('#progress').attr("class","progress-bar progress-bar-striped");
+        $('#progress').html(""); 
+        $('#progresstxt').html("");
+        
         if (e.lengthComputable) {  
             // $('progress').attr({value : e.loaded, max : e.total}); //更新数据到进度条  
             var percent = e.loaded/e.total*100;  
-            console.log(percent);
-            $('#progress').html(e.loaded + "/" + e.total+" bytes. " + percent.toFixed(2) + "%");  
-            $('#progress').attr("aria-valuenow",percent);
-            $('#progress').css("width",percent+"%");
+            var loaded = e.loaded;
+            var total = e.total;
+            if(parseInt(total/(1024*1024))<=1){
+                $('#progresstxt').html((e.loaded/1024).toFixed(1) + " / " + (e.total/1024).toFixed(1)+" KB " + percent.toFixed(1) + "%");                  
+            }else{
+                $('#progresstxt').html((e.loaded/(1024*1024)).toFixed(1) + " / " + (e.total/(1024*1024)).toFixed(1)+" MB " + percent.toFixed(1) + "%");   
+            }
+            
+                $('#progress').attr("aria-valuenow",percent);
+                $('#progress').css("width",percent+"%");
+            if(parseInt(percent)==100){
+                setTimeout(function(){$('#progress').attr("class","progress-bar progress-bar-success");$('#progress').html("upload complete!");},1000); 
+                 
+            }
+            
         }  
      
 }
