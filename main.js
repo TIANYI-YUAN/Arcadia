@@ -221,6 +221,10 @@ arcadia.fileModelShow = function(fileMap,domId,category){
             $("#nameNum"+ i).attr("title",map[i].filename);
         }
         arcadia.bindFileClick();
+        console.log(arcadia.currentCate);
+        if(arcadia.currentCate!="files" &&arcadia.currentCate!="photos"){
+            $('#progressBarContainer').hide();
+        };
       
 }
 
@@ -350,7 +354,7 @@ arcadia.refresh = function(){
         arcadia.fileModelShow(files,"files",arcadia.currentCate);  
         console.log(files);
         console.log("refresh successed");
-       
+        
     }).fail(function(){
         console.log("getFileDetails失败"); 
     });
