@@ -330,8 +330,8 @@
                             <div class="progress-bar progress-bar-striped" id="progress" role="progressbar" style="width: 0%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
-                    <canvas id="myCanvas" style="width:400px;height:400px;background-color:#3792bc;position:absolute;bottom:-120px;left:15px;">
-                    </canvas>
+                    <!--<canvas id="myCanvas" style="width:400px;height:400px;position:absolute;bottom:-120px;left:15px;">
+                    </canvas>-->
                 </div>
             </div>
             <div id="fileContainer">
@@ -346,7 +346,7 @@
 
         </div>
         <!--<script src="games/game.js"></script>-->
-        <script>
+        <!--<script>
             // var canvas = document.getElementById("portray");
             // var ctx = canvas.getContext("2d");
             // var image = new Image();
@@ -368,13 +368,13 @@
 var particles = [];
 
 // The amount of particles to render
-var particleCount = 30;
+var particleCount = 300;
 
 // The maximum velocity in each direction
 var maxVelocity = 2;
 
 // The target frames per second (how often do we want to update / redraw the scene)
-var targetFPS = 60;
+var targetFPS = 33;
 
 // Set the dimensions of the canvas as variables so they can be used.
 var canvasWidth = 400;
@@ -391,7 +391,7 @@ imageObj.onload = function() {
 };
 
 // Once the callback is arranged then set the source of the image
-imageObj.src = "games/smoke1.png";
+imageObj.src = "games/part1.png";
 
 // A function to create a particle object.
 function Particle(context) {
@@ -422,7 +422,7 @@ function Particle(context) {
         // Draw the circle as before, with the addition of using the position and the radius from this object.
         this.context.beginPath();
         this.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-        this.context.fillStyle = "rgba(0, 255, 255, 1)";
+        this.context.fillStyle = "rgba(255, 255, 255, 0)";
         this.context.fill();
         this.context.closePath();
     };
@@ -510,7 +510,7 @@ function init() {
 // The function to draw the scene
 function draw() {
     // Clear the drawing surface and fill it with a black background
-    context.fillStyle = "rgba(0, 0, 0, 0.5)";
+    context.fillStyle = "rgba(10, 49, 82, 1)";
     context.fillRect(0, 0, 400, 400);
 
     // Go through all of the particles and draw them.
@@ -541,7 +541,7 @@ if (context) {
         draw();
     }, 1000 / targetFPS);
 }
-        </script>
+        </script>-->
         <script>
                 arcadia.currentCate = document.location.hash.substring(1);
                 console.log(arcadia.currentCate);
